@@ -1,0 +1,19 @@
+# Sensitive clinical data - never commit
+pdfs/
+*.pdf
+*.json
+data/
+*.db
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
