@@ -15,6 +15,8 @@ from pathlib import Path
 
 import pdfplumber
 
+from normalize import normalize_name
+
 # ---------------------------------------------------------------------------
 # Date extraction
 # ---------------------------------------------------------------------------
@@ -180,8 +182,14 @@ def _parse_text(text: str) -> list[dict]:
     seen: set[str] = set()
     for line in text.splitlines():
         p = _parse_line(line)
-        if p and p['name'] not in seen:
-            seen.add(p['name'])
+        if not p:
+            continue
+        canonical = normalize_name(p['name'])
+        if canonical is None:
+            continue
+        p['name'] = canonical
+        if canonical not in seen:
+            seen.add(canonical)
             params.append(p)
     return params
 
